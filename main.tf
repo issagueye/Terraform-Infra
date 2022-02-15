@@ -1,5 +1,6 @@
 variable "AWS_REGION" {
     type = string
+    default = "us-east-1"
 }
 
 variable "PROFILE" {
@@ -15,17 +16,8 @@ variable "PROFILE" {
 
 provider "aws" {
   region  = "${var.AWS_REGION}"
-  profile = "${var.PROFILE}"
 }
 
-terraform {
-  backend "s3" {
-    region = "eu-west-1"
-    bucket= "baobabs-terraform-state"
-    key = "baobabs-terraform-state/terraform.tfstate"
-    dynamodb_table="terraform-state-lock"
-  }
-}
 
 resource "aws_iam_role" "eks_cluster" {
   name = "eks-cluster"
